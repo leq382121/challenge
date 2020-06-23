@@ -43,12 +43,12 @@ function App() {
         {
           id: 1,
           level: 1,
-          name: 'Ipsum'
+          name: 'child-Ipsum'
         },
         {
           id: 2,
           level: 2,
-          name: 'Sit'
+          name: 'child-Sit'
         },
       ]
     },
@@ -72,34 +72,44 @@ function App() {
     {
       id: 3,
       level: 0,
-      name: 'noChilds',
-      childs: []
+      name: 'noChilds'
     }
   ]);
 
 
-  // tikrinam ar gautas key value yra objektas. 
-  // jei tai nera objektas, grazinam. 
-  // jei tai objektas, inicijuojame ta pacia funkcija su nauju objektu ir loopinam.
-
-  const Recursion = () => {
-    // Sukurkime array ir pagal 'level' upushinkime i array vidu pagal array indexa.
-    // f.ex: [[key:prop], [[key:prop], [key:prop]]]
+  function Recursion() {
 
     // recursionValue.map((item, index) => {
-    //   console.log('test');
-    //   if (!item.childs.length) {
-    //     console.log(item.childs.name);
+    //   if (item.childs && item.childs.length > 0) {
+    //     // Recursion();
+    //     for (let i = 0; i <= item.childs.length; i++) {
+    //       console.log(item.childs[i].name);
 
-    //     for (let i = 0; i < item.childs.length; i++) {
-    //       console.log(item.childs.name);
-
-    //       return item.childs[i].name;
+    //       return <li>{item.childs[i].name}</li>
     //     }
     //   }
-
     //   return <li>{item.name}</li>
     // })
+
+    // switched to forEach because found that forEach does not create a new array.
+
+    recursionValue.forEach((item) => {
+      if (item.childs && item.childs.length > 0) {
+
+        // for (let i = 0; i <= item.childs.length; i++) {
+        //   console.log(item.childs[i].name);
+        //   return <li>{item.childs[i].name}</li>
+        // }
+
+        item.childs.forEach((item) => {
+          return <li>{item.name}</li>
+        })
+
+      }
+
+      return <li>{item.name}</li>
+    })
+
   }
 
   useEffect(() => {
@@ -107,7 +117,7 @@ function App() {
 
   return ([
     <div className="objects-wrapper">
-      {/* ne pats gražiausias, bet MVP */}
+      {/* MVP */}
       <ul className="approach-1">
         {jsonValue.map((item, index) => (
           <li key={item.id} style={{ marginLeft: 10 * item.level }}>
@@ -117,23 +127,7 @@ function App() {
       </ul>
 
       <ul className="approach-2">
-        {
-          recursionValue.map((item, index) => {
-            // console.log(!item.childs.length);
-
-            if (item.childs.length !== null) {
-              // console.log(item.childs.name);
-
-              for (let i = 0; i < item.childs.length; i++) {
-                console.log(item.childs[i].name);
-
-                return <li>{item.childs[i].name}</li>
-              }
-            }
-
-            return <li>{item.name}</li>
-          })
-        }
+        {Recursion()}
       </ul>
 
     </div>

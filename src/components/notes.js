@@ -65,3 +65,12 @@
     }
   }
 } */
+
+
+// tikrinam ar gautas key value yra objektas. 
+// jei tai nera objektas, grazinam. 
+// jei tai objektas, inicijuojame ta pacia funkcija su nauju objektu ir loopinam.
+
+
+// Sukurkime array ir pagal 'level' upushinkime i array vidu pagal array indexa.
+// f.ex: [[key:prop], [[key:prop], [key:prop]]]
