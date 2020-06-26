@@ -42,76 +42,86 @@ function App() {
       {
         id: 0,
         name: 'Lorem',
-        childs: [
-          {
-            id: 1,
-            name: 'Lipsum',
-          },
-          {
-            id: 2,
-            name: 'Klipsum',
-          }
-        ]
+        childs:
+          [
+            {
+              id: 1,
+              name: 'child-Ipsum'
+            },
+            {
+              id: 2,
+              name: 'child-Sit',
+              childs:
+                [
+                  {
+                    id: 3,
+                    name: 'child-g'
+                  },
+                  {
+                    id: 4,
+                    name: 'child-d',
+                    childs:
+                      [
+                        {
+                          id: 10,
+                          name: 'child-g'
+                        },
+                        {
+                          id: 11,
+                          name: 'child-d'
+                        },
+                      ]
+                  },
+                ]
+            },
+          ]
       },
+      {
+        id: 5,
+        name: 'Amer',
+        childs:
+          [
+            {
+              id: 6,
+              name: 'child-Ipsum'
+            },
+            {
+              id: 7,
+              name: 'child-Sit',
+              childs:
+                [
+                  {
+                    id: 8,
+                    name: 'child-g'
+                  },
+                  {
+                    id: 9,
+                    name: 'child-d'
+                  },
+                ]
+            },
+          ]
+      }
     ]
   );
 
+  function recursion(obj) {
+    // jei gautas elementas yra objektas ...
+    if (!Array.isArray(obj)) {
+      // ... graziname varda ...
+      console.log(obj.name, 'id:', obj.id);
 
-  // function Recursion() {
+      // ... ir jei jo viduje randame childs - kvieciame kiekvienam vaikui.
+      if (obj.hasOwnProperty('childs')) recursion(obj.childs);
 
-  //   // recursionValue.map((item, index) => {
-  //   //   if (item.childs && item.childs.length > 0) {
-  //   //     // Recursion();
-  //   //     for (let i = 0; i <= item.childs.length; i++) {
-  //   //       console.log(item.childs[i].name);
-
-  //   //       return <li>{item.childs[i].name}</li>
-  //   //     }
-  //   //   }
-  //   //   return <li>{item.name}</li>
-  //   // })
-
-  //   // switched to forEach because found that forEach does not create a new array.
-
-  //   recursionValue.forEach((item) => {
-  //     if (item.childs && item.childs.length > 0) {
-
-  //       // for (let i = 0; i <= item.childs.length; i++) {
-  //       //   console.log(item.childs[i].name);
-  //       //   return <li>{item.childs[i].name}</li>
-  //       // }
-
-  //       item.childs.forEach((item) => {
-  //         return <li>{item.name}</li>
-  //       })
-
-  //     }
-
-  //     return <li>{item.name}</li>
-  //   })
-
-  // }
-
-  function recursion(obj, gylis = 0) {
-    console.log(typeof obj);
-    console.log(obj);
-    console.log(obj.id);
-
-    if (gylis > 5) return;
-
-    console.log({ id: obj.id, name: obj.name, gylis })
-
-    if (undefined !== obj.childs && Array.isArray(obj.childs) && obj.childs.length) {
-      obj.childs.forEach((o, i) => {
-        recursion(o[i], gylis++)
-      })
+    } else {
+      // jei gautas elementas yra array, mes darome forEach kiekvienam elementui.
+      obj.forEach(arrayObject => recursion(arrayObject));
     }
-
-    else return <li>{obj.name}</li>;
   }
 
-  useEffect(() => {
-  }, [jsonValue]);
+  // useEffect(() => {
+  // }, [jsonValue]);
 
   return ([
     <div className="objects-wrapper">
